@@ -1,0 +1,5 @@
+{
+  "name": "node-jedis-cluster",
+  "version": "0.0.1",
+  "main":"node-jedis-cluster.js"
+}
