@@ -58,7 +58,7 @@ var compareKey = function(k1,k2){
     }
     //比较部分2
     if(k1.fp == k2.fp){
-        if(k1.bp >k1.bp){
+        if(k1.bp >k2.bp){
             return true;
         }else{
             return false;
@@ -111,7 +111,7 @@ var findRecentlyKey = function(node,startIndex,endIndex){
     }
     if(endIndex - startIndex == 1){
         if(compareKey(hashKeys[endIndex],node)){
-            return hashKeys[endIndex];
+            return compareKey(hashKeys[startIndex],node)?hashKeys[startIndex]:hashKeys[endIndex];//最后剩余两个一一比较哪个更接近
         }else{
             return;
         }
@@ -133,7 +133,7 @@ var findRecentlyKey = function(node,startIndex,endIndex){
 //根据key 获取对应的组
 re.getShard = function(key){
     var hk = algo.mHash(key);
-    var node = findRecentlyKey(genNode(hk),0,hashKeys.length);
+    var node = findRecentlyKey(genNode(hk),0,hashKeys.length-1);
     if(!node){
         var ln = hashKeys[0];
         return this.shardConfig[ln.shardIndex];//不是第一个 是key最小的一个
